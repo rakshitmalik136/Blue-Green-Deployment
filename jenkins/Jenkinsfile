@@ -1,0 +1,54 @@
+pipeline {
+    agent any
+
+    environment {
+        APP_URL = "http://localhost:8081"
+    }
+
+    stages {
+        stage('Checkout') {
+            steps {
+                checkout scm
+            }
+        }
+
+        stage('Check & Validate') {
+            steps {
+                echo 'Validating configuration files...'
+                sh 'test -f scripts/script.sh'
+                sh 'test -f nginx/nginx.conf'
+            }
+        }
+
+        stage('Build & Start') {
+            steps {
+                echo 'Syncing Docker containers...'
+                sh 'docker-compose up -d --build'
+            }
+        }
+
+        stage('Switch Traffic') {
+            steps {
+                echo 'Initiating Blue-Green Switch...'
+                sh 'chmod 774 scripts/script.sh'
+                sh './scripts/script.sh'
+            }
+        }
+
+        stage('Final Verification') {
+            steps {
+                echo "Testing application health at ${env.APP_URL}..."
+                sh "curl -f ${env.APP_URL}"
+            }
+        }
+    }
+
+    post {
+        success {
+            echo 'Deployment Complete: Traffic switched successfully.'
+        }
+        failure {
+            echo 'Deployment Failed: Check the Jenkins console logs for errors.'
+        }
+    }
+}
