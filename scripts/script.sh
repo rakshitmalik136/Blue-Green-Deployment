@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Path to the config file relative to the project root
-CONFIG_FILE="./nginx/nginx.conf"
+CONFIG_FILE="./nginx/conf/nginx.conf"
 
 # Identify which server is currently active
 if grep -q "server app-blue:80;" "$CONFIG_FILE"; then
