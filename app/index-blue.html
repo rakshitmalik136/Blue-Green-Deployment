@@ -1,0 +1,37 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Blue-Green Deployment V1</title>
+        <link rel="stylesheet" href="css/style.css">
+    </head>
+    <body>
+        <h1>Welcome to example of blue-green deployment</h1>
+        <p>Blue Green Deployments :: Blue-Green Deployment is a release strategy used in DevOps where you maintain two identical production environments:
+	Blue Environment = Current live version (users are using this now)
+	Green Environment = New version with updated code
+	At any time, only one environment serves live traffic.
+	When the new version is ready and tested in Green, traffic is switched from Blue → Green.
+	So instead of updating the live server directly, you prepare another environment and then swap traffic.
+	Example:
+	Blue = v1 website live
+	Green = v2 website ready
+	Switch users to Green when stable</p>
+	<br>
+	<p>Why use Blue-Green Deployment?
+	Main Benefits:
+	a) Zero / Near Zero Downtime
+	Users don’t experience downtime because one environment is always running.
+	b) Fast Rollback
+	If Green has bugs:
+	Just switch traffic back to Blue immediately.
+	c) Safe Releases
+	You can test Green fully before exposing users.
+	d) Less Risk During Deployments
+	No need to modify live servers directly.
+	e) Better User Experience
+	No “maintenance mode” page.</p>
+	<br>
+	<p>End</p>
+    </body>
+</html>
