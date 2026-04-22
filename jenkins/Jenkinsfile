@@ -16,7 +16,7 @@ pipeline {
             steps {
                 echo 'Validating configuration files...'
                 sh 'test -f scripts/script.sh'
-                sh 'test -f nginx/nginx.conf'
+                sh 'test -f nginx/conf/nginx.conf'
             }
         }
 
