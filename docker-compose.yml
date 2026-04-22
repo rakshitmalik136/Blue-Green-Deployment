@@ -1,0 +1,29 @@
+version: '3.8'
+
+services:
+  
+  #LOAD BALANCER
+  nginx-lb:
+    build: ./nginx
+    container_name: nginx-lb
+    ports:
+      - "8081:80"
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:z
+    depends_on:
+      - app-blue
+      - app-green
+
+  #Version v1
+  app-blue:
+    image: nginx:alpine
+    container_name: app-blue
+    volumes:
+      - ./app/index-blue.html:/usr/share/nginx/html/index.html:ro
+
+  #Version v2
+  app-green:
+    image: nginx:alpine
+    container_name: app-green
+    volumes:
+      - ./app/index-green.html:/usr/share/nginx/html/index.html:ro
